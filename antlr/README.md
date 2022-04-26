@@ -25,13 +25,13 @@ ParseTree tree = parser.program(); // program是.g4中定义的第一个非终�
 可视化ParserTree：
 ```
 
-import java.util.Arrays;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import org.antlr.v4.gui.TreeViewer;
+    import java.util.Arrays;
+    import javax.swing.JFrame;
+    import javax.swing.JPanel;
+    import javax.swing.JScrollPane;
+    import java.awt.Dimension;
+    import java.awt.Toolkit;
+    import org.antlr.v4.gui.TreeViewer;
 
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int screenWidth = (int) screenSize.getWidth();
