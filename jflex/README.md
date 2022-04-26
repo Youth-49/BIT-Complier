@@ -1,5 +1,7 @@
 # Some Notes
 
+jflex下载地址：https://jflex.de/download.html
+
 第一部分将直接复制到生成的Lexer中，包括引入一些库和包，定义package，定义一些变量等。
 
 第二部分是一些选项，具体含义可以查看JFlex User’s Manual。
