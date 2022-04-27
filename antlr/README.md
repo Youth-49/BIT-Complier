@@ -2,11 +2,11 @@
 
 ANTLR: 使用IDEA中的插件: https://plugins.jetbrains.com/plugin/7358-antlr-v4 . 为适应BITMini-CC中的包：/bitmincc-clean/lib/antlr-4.8-complete.jar，选用1.13版本（支持ANTLR 4.8.1）
 
-C语言文法来着于：https://github.com/antlr/grammars-v4/blob/master/c/C.g4 . 其中没有给出文法开始符号，这里添加一条文法规则：
+C语言文法来着于：https://blog.csdn.net/weixin_43877853/article/details/123148335 (offical: https://github.com/antlr/grammars-v4/blob/master/c/C.g4) . 其中没有给出文法开始符号，这里添加一条文法规则：
 
 ```
-program
-    :   functionDefinition+
+compilationUnit
+    :   translationUnit? EOF
     ;
 ```
 
@@ -15,14 +15,22 @@ program
 使用ANTLR产生的分析器：
 
 ```
+FileInputStream in = new FileInputStream(inFile);
 ANTLRInputStream input = new ANTLRInputStream(in);
 CLexer lexer = new CLexer(input);
 CommonTokenStream tokens = new CommonTokenStream(lexer);
 CParser parser = new CParser(tokens);
-ParseTree tree = parser.program(); // program是.g4中定义的第一个非终结符，即为文法开始符
+ParseTree tree = parser.compilationUnit();
+ParseTreeWalker walker = new ParseTreeWalker();
+MyListener listener = new MyListener();
+listener.oFile=oFile;
+walker.walk(listener, tree); // and visualize AST
+TreeViewer viewer = new TreeViewer(Arrays.asList(parser.getRuleNames()),tree); // visualize CST
+……
+
 ```
 
-可视化ParserTree：
+可视化ParserTree(CST)：
 ```
 
     import java.util.Arrays;
@@ -50,3 +58,6 @@ ParseTree tree = parser.program(); // program是.g4中定义的第一个非终�
     //        frame.pack();
     frame.setVisible(true);
 ```
+
+获得AST并可视化：参考自https://blog.csdn.net/weixin_43877853/article/details/123162382
+
